@@ -1,5 +1,15 @@
 #Zippopotamus-clj
 
+Zipcodes for Clojure
+
+## Usage
+
+Add this to your dependencies in Leiningen
+
+```clojure
+[zippopotamus-clj "0.1.0"]
+```
+
 ## Description
 
 This is a small wrapper around the Zippopotamus API. It currently supports two public methods
