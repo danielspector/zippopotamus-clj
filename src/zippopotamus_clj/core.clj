@@ -13,15 +13,18 @@
 (def url "http://api.zippopotam.us/us/")
 
 (defn zip-request
+  "Request zip code information from the Zippopotamus API"
   [postal-code & query-params]
   (keyword-dash (api-request postal-code query-params)))
 
 (defn city-request
+  "Request city information for the Zippopotamus API"
   [state city & query-params]
   (let [addition (str city "/" state)]
    (keyword-dash (api-request addition query-params))))
 
 (defn replace-space-with-dash
+  "Replaces spaces with dashes"
   [kw]
   (string/replace kw #"\s+" "-"))
 
@@ -31,8 +34,3 @@
   [m]
    (let [f (fn [[k v]] (if (string? k) [(keyword (replace-space-with-dash k)) v] [k v]))]
      (walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
-
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
