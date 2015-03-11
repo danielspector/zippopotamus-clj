@@ -8,7 +8,7 @@
   "Makes an HTTP call using the clj-http library"
   [url-addition & query-params]
   (let [url (str url url-addition)]
-   (client/get url {:as :json-strict-string-keys})))
+   (:body (client/get url {:as :json-strict-string-keys}))))
 
 (def url "http://api.zippopotam.us/us/")
 
