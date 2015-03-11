@@ -1,10 +1,22 @@
 (ns zippopotamus-clj.core
-  (:require  [clj-http.client :as client])
-  (:require  [clojure.string  :as string])
-  (:require  [clojure.walk    :as walk])
+  (:require [clj-http.client :as client]
+            [clojure.string  :as string]
+            [clojure.walk    :as walk])
   (:gen-class))
 
 (def url "http://api.zippopotam.us/us/")
+
+(defn- replace-space-with-dash
+  "Replaces spaces with dashes"
+  [kw]
+  (string/replace kw #"\s+" "-"))
+
+(defn- keyword-dash
+  "Recursively walks through the map and converts all
+  string thats are keys to dashed keywords"
+  [m]
+   (let [f (fn [[k v]] (if (string? k) [(keyword (replace-space-with-dash k)) v] [k v]))]
+     (walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
 
 (defn- api-request
   "Makes an HTTP call using the clj-http library"
@@ -23,14 +35,4 @@
   (let [addition (str city "/" state)]
    (keyword-dash (api-request addition query-params))))
 
-(defn- replace-space-with-dash
-  "Replaces spaces with dashes"
-  [kw]
-  (string/replace kw #"\s+" "-"))
 
-(defn- keyword-dash
-  "Recursively walks through the map and converts all
-  string thats are keys to dashed keywords"
-  [m]
-   (let [f (fn [[k v]] (if (string? k) [(keyword (replace-space-with-dash k)) v] [k v]))]
-     (walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
