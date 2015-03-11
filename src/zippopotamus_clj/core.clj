@@ -4,7 +4,7 @@
   (:require  [clojure.walk    :as walk])
   (:gen-class))
 
-(defn api-request
+(defn- api-request
   "Makes an HTTP call using the clj-http library"
   [url-addition & query-params]
   (let [url (str url url-addition)]
@@ -23,12 +23,12 @@
   (let [addition (str city "/" state)]
    (keyword-dash (api-request addition query-params))))
 
-(defn replace-space-with-dash
+(defn- replace-space-with-dash
   "Replaces spaces with dashes"
   [kw]
   (string/replace kw #"\s+" "-"))
 
-(defn keyword-dash
+(defn- keyword-dash
   "Recursively walks through the map and converts all
   string thats are keys to dashed keywords"
   [m]
