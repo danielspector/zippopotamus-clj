@@ -4,13 +4,13 @@
   (:require  [clojure.walk    :as walk])
   (:gen-class))
 
+(def url "http://api.zippopotam.us/us/")
+
 (defn- api-request
   "Makes an HTTP call using the clj-http library"
   [url-addition & query-params]
   (let [url (str url url-addition)]
    (:body (client/get url {:as :json-strict-string-keys}))))
-
-(def url "http://api.zippopotam.us/us/")
 
 (defn zip-request
   "Request zip code information from the Zippopotamus API"

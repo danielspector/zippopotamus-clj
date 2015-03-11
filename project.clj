@@ -1,4 +1,4 @@
-(defproject zippopotamus-clj "0.1.1"
+(defproject zippopotamus-clj "0.1.2"
   :description "A Clojure Wrapper for the Zippopotamus API"
   :url "https://www.github.com/danielspector/zippopotamus-clj"
   :license {:name "Eclipse Public License"
